@@ -135,9 +135,32 @@ public class BookServiceImplV1 implements BookService {
 		return null;
 	}
 
+	// bk_isbn=1OR1=1
 	@Override
 	public BookVO findById(String bk_isbn) {
-		// TODO Auto-generated method stub
+		// TODO ISBN으로 도서정보 조회후 데이터 return
+		PreparedStatement pStr = null;
+		String sql = "SELECT * FROM view_도서정보 WHERE ISBN = '" 
+						+ bk_isbn + "'" ;
+		
+		// System.out.println(sql);
+		
+		try {
+			
+			pStr = dbConn.prepareStatement(sql);
+			ResultSet result = pStr.executeQuery();
+			if(result.next()) {
+				BookVO bookVO = new BookVO();
+				bookVO.setBk_title(result.getString("도서명"));
+				bookVO.setBk_isbn(result.getString("ISBN"));
+				bookVO.setBk_ccode(result.getString("출판사명"));
+				bookVO.setBk_acode(result.getString("저자명"));
+				return bookVO;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 
@@ -159,9 +182,15 @@ public class BookServiceImplV1 implements BookService {
 		
 	}
 
+	// bk_isbn=1OR1=1
 	@Override
 	public void delete(String bk_isbn) {
-		// TODO Auto-generated method stub
+		// TODO ISBN을 전달받아서 데이터 삭제
+		String sql = "DELETE FROM tbl_books WHERE bk_isbjn = '"
+				+ bk_isbn + "'";
+		
+		
+		
 		
 	}
 

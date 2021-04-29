@@ -19,7 +19,7 @@ import com.callor.db.service.impl.BookServiceImplV1;
 // /db : ContextRoot = 프로젝트의 별명
 // /book : 요청 path
 // ?변수=값 : Query 요청 값
-@WebServlet("/book")
+@WebServlet("/book/*")
 public class BookController extends HttpServlet {
 
 	private BookService bService;
@@ -41,14 +41,43 @@ public class BookController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, 
 			HttpServletResponse resp) throws ServletException, IOException {
 		
-		List<BookVO> bookList = bService.selectAll();
+		/*
+		 *  db/book/* 의 pattern으로 요청을 하면
+		 *  * 부분에 추가된 sub Path를 추출하여 여러가지 요청을
+		 *  처리할수 있다
+		 *  이때 추가된 sub Path를 추출할때는 req.getPathInfo()를
+		 *  사용하여 추출한다
+		 */
+		
 		resp.setContentType("text/html;charset=UTF-8");
-		
-		Integer.valueOf("A0001");
-		
 		PrintWriter out = resp.getWriter();
+		String subPath = req.getPathInfo();
+		
+		if(subPath.equals("/select")) {
+			List<BookVO> bookList = bService.selectAll();
+			out.println(bookList.toString());
+		} else if(subPath.equals("/find")) {
+			String isbn = req.getParameter("isbn");
+			System.out.println(isbn);
+			BookVO bookVO = bService.findById(isbn);
+			if(bookVO == null) {
+				out.println("찾는 데이터가 없음");
+			} else {
+				out.println(bookVO.toString());	
+			}
+		}
+		out.println(subPath);
+		out.close();
+		
+	} // end doGet()
+	
+	private void selectAll() {
+		List<BookVO> bookList = bService.selectAll();
+		// resp.setContentType("text/html;charset=UTF-8");
+		
+		PrintWriter out = null; // resp.getWriter();
 		out.println("Welcome to my home :");
-		out.println(req.getContextPath());
+		// out.println(req.getContextPath());
 		for(BookVO vo : bookList) {
 			out.print("<p>");
 			out.print(vo.getBk_isbn());
@@ -60,8 +89,8 @@ public class BookController extends HttpServlet {
 			out.println(vo.getBk_date());
 		}
 		out.close();
-		
-	} // end doGet()
+
+	}
 	
 	private void callService() {
 
