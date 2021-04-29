@@ -36,6 +36,8 @@ public class ArithController extends HttpServlet{
 		// jsp 파일을 Randering을 강제로 수행하기
 		RequestDispatcher dispatcher
 		= app.getRequestDispatcher("/result.jsp");
+		
+		
 		dispatcher.forward(req, resp);
 		
 	}
