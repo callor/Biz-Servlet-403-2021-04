@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>나의 홈페이지</title>
+</head>
+<body>
+	
+	<h1>나의 홈페이지에 방문하신것을 환영합니다.</h1>
+	
+	<!-- book input 주소로 ISBN 도서명 가격을 포장하여 보내라 -->
+	<!-- WAS(Web App Server)에게 ISBN 도서명 가격 데이터를 보내고 -->
+	<!-- 어떤 처리를 요청하는 HTML 코드 -->
+	<form action="book/input">
+		<p><label>ISBN : </label><input name="bk_isbn" /></p>
+		<p><label>도서명 : </label><input name="bk_title" /></p>
+		<p><label>가격 : </label><input name="bk_price" /></p>
+		<p><button>주문하기</button>
+	</form>
+</body>
+</html>
+
+
