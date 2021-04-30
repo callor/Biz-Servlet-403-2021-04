@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -66,6 +69,21 @@ public class BookController extends HttpServlet {
 			
 		} else if(subPath.equals("/select")) {
 			List<BookDTO> booklist = bService.selectAll();
+		
+		} else if(subPath.equals("/isbn")) {
+			String bk_isbn 
+			= req.getParameter("bk_isbn");
+			
+			BookDTO bookDTO 
+			= bService.findById(bk_isbn);
+			
+			ServletContext app = this.getServletContext();
+			app.setAttribute("BOOK", bookDTO);
+			
+			RequestDispatcher disp 
+			= app.getRequestDispatcher("/WEB-INF/views/book.jsp");
+			disp.forward(req, resp);
+			
 		} else {
 			out.println("반갑습니다");
 			out.close();

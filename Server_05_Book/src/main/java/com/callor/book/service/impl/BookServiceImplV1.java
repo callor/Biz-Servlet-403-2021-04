@@ -2,6 +2,7 @@ package com.callor.book.service.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -61,7 +62,9 @@ public class BookServiceImplV1 implements BookService{
 			pStr.setString(5, bookVO.getBk_date());
 			pStr.setInt(6, bookVO.getBk_price());
 			pStr.setInt(7, bookVO.getBk_pages());
+			
 			pStr.executeUpdate();
+			
 			pStr.close();
 			System.out.println("Insert OK!!");
 			
@@ -69,9 +72,6 @@ public class BookServiceImplV1 implements BookService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
 	}
 
 	@Override
@@ -82,7 +82,39 @@ public class BookServiceImplV1 implements BookService{
 
 	@Override
 	public BookDTO findById(String bk_isbn) {
-		// TODO Auto-generated method stub
+		// TODO 도서검색
+		
+		String sql = " SELECT * FROM view_도서정보 ";
+		sql += " WHERE ISBN = ? ";
+		
+		PreparedStatement pStr = null;
+		
+		try {
+			pStr = dbConn.prepareStatement(sql);
+			pStr.setString(1, bk_isbn.trim());
+			ResultSet result = pStr.executeQuery();
+				
+			if(result.next()) {
+				BookDTO bookDTO = new BookDTO();
+				bookDTO.setBk_isbn(result.getString("ISBN"));
+				bookDTO.setBk_title(result.getString("도서명"));
+				bookDTO.setBk_cname(result.getString("출판사명"));
+				bookDTO.setBk_cceo(result.getString("출판사대표"));
+				
+				bookDTO.setBk_author(result.getString("저자명"));
+				bookDTO.setBk_au_tel(result.getString("저자연락처"));
+				return bookDTO;
+			} else {
+				return null;
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		return null;
 	}
 
