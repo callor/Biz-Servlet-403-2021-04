@@ -52,6 +52,9 @@ public class BookController extends HttpServlet {
 			bookVO.setBk_isbn(bk_isbn);
 			bookVO.setBk_title(bk_title);
 			bookVO.setBk_price( Integer.valueOf(bk_price) );
+			bookVO.setBk_ccode("C0001");
+			bookVO.setBk_acode("A0001");
+			bookVO.setBk_date("2019-10-01");
 			
 			bService.insert(bookVO);
 			

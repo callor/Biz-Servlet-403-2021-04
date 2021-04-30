@@ -43,7 +43,7 @@ public interface BookService {
 	
 	// 삭제할 도서의 ISBN을 1개 전달받아서
 	// 한개의 도서 정보를 삭제하는 기능 수행
-	public void delete(String bk_isbmn);
+	public void delete(String bk_isbn);
 	
 }
 
