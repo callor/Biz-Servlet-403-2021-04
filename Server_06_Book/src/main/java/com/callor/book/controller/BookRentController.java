@@ -3,12 +3,16 @@ package com.callor.book.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.callor.book.model.BookRentDTO;
 import com.callor.book.model.BookRentVO;
 import com.callor.book.service.BookRentService;
 import com.callor.book.service.impl.BookRentServiceImplV1;
@@ -38,6 +42,21 @@ public class BookRentController extends HttpServlet{
 			// 도서대여 전체 목록
 			brService.selectAll();
 			out.println("도서대여 전체목록 보기");
+			
+		} else if(subPath.equals("/seq")) {
+			// 주문번호로 찾기
+			
+			String strSeq = req.getParameter("id");
+			Long nSeq = Long.valueOf(strSeq);
+			BookRentDTO brDTO = brService.findById(nSeq);
+			
+			// view에서 보여줄 데이터 생성
+			ServletContext app = this.getServletContext();
+			app.setAttribute("BOOK", brDTO);
+			
+			RequestDispatcher disp
+			= app.getRequestDispatcher("/WEB-INF/views/book.jsp");
+			disp.forward(req, resp);
 			
 		} else if(subPath.equals("/isbn")) {
 			// 도서코드로 찾기

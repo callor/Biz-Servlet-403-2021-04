@@ -23,7 +23,7 @@ public class DBContract {
 		
 		String jdbcDriver = "oracle.jdbc.OracleDriver";
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
-		String username = "bookuser";
+		String username = "bookuse";
 		String password = "bookuser";
 		
 		try {
@@ -35,6 +35,7 @@ public class DBContract {
 				= DriverManager.getConnection(url,
 						username,password);
 			}
+			System.out.println("오라클 접속 OK!!!");
 			
 		} catch (ClassNotFoundException e) {
 			System.out.println("오라클 Drvier를 찾을 수 없음");
@@ -51,7 +52,7 @@ public class DBContract {
 		}
 	} // end static
 	
-	public Connection getDBConnection() {
+	public static Connection getDBConnection() {
 		return dbConn;
 	}
 	
