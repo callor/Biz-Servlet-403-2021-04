@@ -18,11 +18,6 @@
 	<h5>반납일 : ${BOOK.br_edate}</h5>
 	<h5>대여료 : ${BOOK.br_price}</h5>
 	
-	<%
-	for(int i = 0 ; i <  10 ; i++) {
-	%>
-	
-	
 	
 	
 	

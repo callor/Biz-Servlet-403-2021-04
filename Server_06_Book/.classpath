@@ -14,7 +14,7 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="C:/bizworks/server_works/java_jdk/lombok.jar"/>
-	<classpathentry kind="lib" path="C:/bizworks/server_works/java_jdk/ojdbc6.jar"/>
-	<classpathentry kind="lib" path="C:/bizworks/server_works/java_jdk/taglibs-standard-impl-1.2.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/bizworks/server_works/java_jdk/ojdbc6.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/bizworks/server_works/java_jdk/taglibs-standard-impl-1.2.5.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
