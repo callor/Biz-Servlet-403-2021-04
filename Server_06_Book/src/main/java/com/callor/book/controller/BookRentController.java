@@ -52,10 +52,20 @@ public class BookRentController extends HttpServlet{
 			
 			// view에서 보여줄 데이터 생성
 			ServletContext app = this.getServletContext();
+			
+			// bService가 return한 brDTO를
+			// app객체에 BOOK 이라는 속성변수로 세팅하기
 			app.setAttribute("BOOK", brDTO);
 			
+			// book.jsp 파일을 읽어서
+			// app에 setting한 BOOK 변수화 함께 
+			// Rendering을 하라
 			RequestDispatcher disp
-			= app.getRequestDispatcher("/WEB-INF/views/book.jsp");
+			= app.getRequestDispatcher(
+					"/WEB-INF/views/book.jsp"
+			);
+			// Rendering 된 view 데이터를
+			// Web browser로 response 하라
 			disp.forward(req, resp);
 			
 		} else if(subPath.equals("/isbn")) {

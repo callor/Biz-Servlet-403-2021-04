@@ -19,6 +19,22 @@ public class BookRentServiceImplV1 implements BookRentService{
 		dbConn = DBContract.getDBConnection();
 	}
 	
+	
+	/*
+	 * exception 처리 방법 2가지
+	 * 1. try-catch 를 사용하기
+	 * 		exception이 발생할 코드를 감싸서
+	 * 		"직접" exception을 처리하기
+	 * 
+	 * 2. 떠넘기기(던지기)
+	 * 		method throws 를 추가하여
+	 * 		호출한 method에게 exception을 되돌려 보내기
+	 * 		현재 method 에서 직접 exception을 처리하는 
+	 * 		코드가 없어서 코드가 다소 간소화 된다
+	 * 		
+	 * 		호출한 곳에서 대신 exception을 처리한다
+	 */
+	
 	protected List<BookRentDTO> select(PreparedStatement pStr) throws SQLException {
 		List<BookRentDTO> brList 
 			= new ArrayList<BookRentDTO>();;
