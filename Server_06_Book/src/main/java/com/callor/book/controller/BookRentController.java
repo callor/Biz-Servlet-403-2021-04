@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -151,9 +152,20 @@ public class BookRentController extends HttpServlet{
 				RequestDispatcher disp 
 				= req.getRequestDispatcher("/WEB-INF/views/page1.jsp");
 				disp.forward(req, resp);
-				
-				
 			}
+		} else if(subPath.equals("/order/page2")) {
+			
+			String bu_code = req.getParameter("bu_code");
+			BuyerDTO buyerDTO = buService.findById(bu_code);
+			System.out.println(buyerDTO.toString());
+			
+			ServletContext app = req.getServletContext();
+			app.setAttribute("BUYER", buyerDTO);
+			
+			RequestDispatcher disp 
+			= req.getRequestDispatcher("/WEB-INF/views/page2.jsp");
+			disp.forward(req, resp);
+			
 		} else if(subPath.equals("/return")) {
 			// 반납하기
 			BookRentVO bookRentVO = new BookRentVO();
