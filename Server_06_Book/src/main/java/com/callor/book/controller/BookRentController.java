@@ -33,41 +33,78 @@ public class BookRentController extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		// rent/* 로 요청이 되면 * 위치에 부착되는
+		// Sub 요청을 분리해낸다
+		// rent/seq 라고 요청을 하면
+		// subPath 에는 /seq 라는 문자열이 담길것이다
 		String subPath = req.getPathInfo();
 		
+		// outputStream을 사용하여 문자열 방식으로
+		// 응답을 하기위한 준비
 		resp.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = resp.getWriter();
 		
-		if(subPath.equals("/list")) {
-			// 도서대여 전체 목록
-			brService.selectAll();
-			out.println("도서대여 전체목록 보기");
+		// rent/seq 로 요청이 들어오면...
+		if(subPath.equals("/seq")) {
 			
-		} else if(subPath.equals("/seq")) {
 			// 주문번호로 찾기
-			
 			String strSeq = req.getParameter("id");
-			Long nSeq = Long.valueOf(strSeq);
-			BookRentDTO brDTO = brService.findById(nSeq);
 			
-			// view에서 보여줄 데이터 생성
-			ServletContext app = this.getServletContext();
+			if(strSeq == null || strSeq.equals("")) {
+				out.println("주문번호가 없음");
+				out.close();
+			} else {
+				Long nSeq = Long.valueOf(strSeq);
+				BookRentDTO brDTO = brService.findById(nSeq);
+				
+				// view에서 보여줄 데이터 생성
+				/*
+				 *  ServletContext app 
+				 *  Tomcat을 기반으로 작성된 Web APP Service에서
+				 *  요청(Req) 응답(Res)를 총괄하는 정보가 담긴
+				 *  객체
+				 *  
+				 *  Web App Service를 구현하기 위하여
+				 *  Req, Res 를 처리하는 여러가지 기능을 구현해야 하는데
+				 *  그러한 기능을 미리 구현해 놓았기 때문에
+				 *  SerlvetContext를 getter 하는 것만으로 충분하다
+				 *  
+				 *  DB 등으로 부터 조회된 데이터를 Web 에게
+				 *  응답하고자 할때 쉬운 방법으로 전달할수 있도록
+				 *  하는 기능이 미리 구현되어 있다
+				 */
+				ServletContext app = this.getServletContext();
+				
+				// bService가 return한 brDTO를
+				// app객체에 BOOK 이라는 속성변수로 세팅하기
+				// 	app 객체에 BOOK 이라는 객체변수를 생성하고
+				//  BOOK 변수에 brDTO 값을 저장한ㄷ
+				//  BookRentDTO BOOK 
+				//		= brDTO 이런 형식의 코드가 실행된다
+				// 세팅된 BOOK 객체변수는 jsp 파일에서 참조하여
+				//		값을 표현할수 있다.
+				app.setAttribute("BOOK", brDTO);
+				
+				// book.jsp 파일을 읽어서
+				// app에 setting한 BOOK 변수화 함께 
+				// Rendering을 하라
+				// wepapp/WEB-INF/views/book.jsp 파일을 읽어서
+				// Java 코드로 변환하고, 실행할 준비를 하라
+				RequestDispatcher disp
+				= app.getRequestDispatcher(
+						"/WEB-INF/views/book.jsp"
+				);
+				// Rendering 된 view 데이터를
+				// Web browser로 response 하라
+				disp.forward(req, resp);
+			}
 			
-			// bService가 return한 brDTO를
-			// app객체에 BOOK 이라는 속성변수로 세팅하기
-			app.setAttribute("BOOK", brDTO);
 			
-			// book.jsp 파일을 읽어서
-			// app에 setting한 BOOK 변수화 함께 
-			// Rendering을 하라
-			RequestDispatcher disp
-			= app.getRequestDispatcher(
-					"/WEB-INF/views/book.jsp"
-			);
-			// Rendering 된 view 데이터를
-			// Web browser로 response 하라
-			disp.forward(req, resp);
-			
+		} else if(subPath.equals("/list")) {
+				// 도서대여 전체 목록
+				brService.selectAll();
+				out.println("도서대여 전체목록 보기");
 		} else if(subPath.equals("/isbn")) {
 			// 도서코드로 찾기
 			brService.findByBISBN("ibsn");
@@ -76,10 +113,13 @@ public class BookRentController extends HttpServlet{
 			// 회원코드로 찾기
 			brService.findByBuyerCode("buyercode");
 			
-		} else if(subPath.equals("/rent")) {
-			// 대여정보 추가, 대여하기
-			BookRentVO bookRentVO = new BookRentVO();
-			brService.insert(bookRentVO);
+		} else if(subPath.equals("/order")) {
+			
+			ServletContext app = req.getServletContext();
+			
+			RequestDispatcher disp 
+			= req.getRequestDispatcher("/WEB-INF/views/order.jsp");
+			disp.forward(req, resp);
 			
 		} else if(subPath.equals("/return")) {
 			// 반납하기
@@ -88,6 +128,8 @@ public class BookRentController extends HttpServlet{
 			
 		} else {
 			// 더이상 그만하기
+			out.println("NOT FOUND");
+			out.close();
 		}
 	}
 
