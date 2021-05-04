@@ -2,9 +2,9 @@ package com.callor.book.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,8 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.callor.book.model.BookRentDTO;
 import com.callor.book.model.BookRentVO;
+import com.callor.book.model.BuyerDTO;
 import com.callor.book.service.BookRentService;
+import com.callor.book.service.BuyerService;
 import com.callor.book.service.impl.BookRentServiceImplV1;
+import com.callor.book.service.impl.BuyerServiceImplV1;
 
 /*
  * Web Browbser의 Request를 처리할 클래스
@@ -27,8 +30,11 @@ public class BookRentController extends HttpServlet{
 	private static final long serialVersionUID = 921652892464670154L;
 	
 	protected BookRentService brService;
+	protected BuyerService buService;
+	
 	public BookRentController() {
 		brService = new BookRentServiceImplV1(); // new... 추가하기
+		buService = new BuyerServiceImplV1();
 	}
 	
 	@Override
@@ -39,6 +45,7 @@ public class BookRentController extends HttpServlet{
 		// rent/seq 라고 요청을 하면
 		// subPath 에는 /seq 라는 문자열이 담길것이다
 		String subPath = req.getPathInfo();
+		System.out.println(subPath);
 		
 		// outputStream을 사용하여 문자열 방식으로
 		// 응답을 하기위한 준비
@@ -113,14 +120,40 @@ public class BookRentController extends HttpServlet{
 			// 회원코드로 찾기
 			brService.findByBuyerCode("buyercode");
 			
+			// rent/order로 요청하면 주문서작성 처음화면 보여주기
+			// 회원이름을 입력하는 화면을 보여주기
 		} else if(subPath.equals("/order")) {
-			
-			ServletContext app = req.getServletContext();
 			
 			RequestDispatcher disp 
 			= req.getRequestDispatcher("/WEB-INF/views/order.jsp");
 			disp.forward(req, resp);
+
+		} else if(subPath.equals("/order/page1")) {
 			
+			String bu_name = req.getParameter("bu_name");
+			if(bu_name == null || bu_name.equals("")) {
+				out.println("회원 이름을 반드시 입력해야 합니다");
+				out.close();
+			} else {
+				List<BuyerDTO> buList 
+					= buService.findByName(bu_name);
+
+				// Service에서 전달된 데이터가 잘 왔나?
+				System.out.println("=".repeat(50));
+				for(BuyerDTO d : buList) {
+					System.out.println(d.toString());
+				}
+				System.out.println("=".repeat(50));
+				
+				ServletContext app = req.getServletContext();
+				app.setAttribute("BUYERS", buList);
+				
+				RequestDispatcher disp 
+				= req.getRequestDispatcher("/WEB-INF/views/page1.jsp");
+				disp.forward(req, resp);
+				
+				
+			}
 		} else if(subPath.equals("/return")) {
 			// 반납하기
 			BookRentVO bookRentVO = new BookRentVO();
