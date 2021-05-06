@@ -12,12 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.callor.book.model.BookDTO;
 import com.callor.book.model.BookRentDTO;
 import com.callor.book.model.BookRentVO;
 import com.callor.book.model.BuyerDTO;
 import com.callor.book.service.BookRentService;
+import com.callor.book.service.BookService;
 import com.callor.book.service.BuyerService;
 import com.callor.book.service.impl.BookRentServiceImplV1;
+import com.callor.book.service.impl.BookServiceImplV1;
 import com.callor.book.service.impl.BuyerServiceImplV1;
 
 /*
@@ -31,10 +34,12 @@ public class BookRentController extends HttpServlet{
 	
 	protected BookRentService brService;
 	protected BuyerService buService;
+	protected BookService bkService;
 	
 	public BookRentController() {
 		brService = new BookRentServiceImplV1(); // new... 추가하기
 		buService = new BuyerServiceImplV1();
+		bkService = new BookServiceImplV1();
 	}
 	
 	@Override
@@ -100,7 +105,7 @@ public class BookRentController extends HttpServlet{
 				// Java 코드로 변환하고, 실행할 준비를 하라
 				RequestDispatcher disp
 				= app.getRequestDispatcher(
-						"/WEB-INF/views/book.jsp"
+						"/WEB-INF/views/order_info.jsp"
 				);
 				// Rendering 된 view 데이터를
 				// Web browser로 response 하라
@@ -181,6 +186,34 @@ public class BookRentController extends HttpServlet{
 			disp.forward(req, resp);
 			
 		} else if(subPath.equals("/order/book")) {
+			String bu_code = req.getParameter("bu_code");
+			String bk_title = req.getParameter("bk_title");
+			
+			if(bk_title == null || bk_title.equals("")) {
+				out.println("도서명을 입력하세요");
+				out.close();
+			} else {
+
+				// 회원정보를 한번더 조회
+				BuyerDTO buDTO = buService.findById(bu_code);
+				req.setAttribute("BUYER", buDTO);
+				
+				List<BookDTO> bookList 
+				= bkService.findByTitle(bk_title);
+				
+				req.setAttribute("BOOKS", bookList);
+				
+				// method chaining 방식으로 연속 호출하기
+				req
+				.getRequestDispatcher("/WEB-INF/views/book.jsp")
+				.forward(req, resp);
+				
+			}
+			
+		} else if(subPath.equals("/order/insert")) {
+			
+			brService.insert(null);
+			
 			
 			
 		} else if(subPath.equals("/return")) {
