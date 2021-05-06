@@ -2,6 +2,8 @@ package com.callor.book.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -212,9 +214,40 @@ public class BookRentController extends HttpServlet{
 			
 		} else if(subPath.equals("/order/insert")) {
 			
-			brService.insert(null);
+			String bk_isbn = req.getParameter("bk_isbn");
+			String bu_code = req.getParameter("bu_code");
+
+			// 대여일자값을 생성하기 위하여
+			// 날짜클래스와 날짜포멧클래스를 사용하여
+			// 대여일자 문자열 만들기
 			
+			// 현재 컴퓨터 시스템 날짜 가져오기
+			Date date = new Date( System.currentTimeMillis() ); 
 			
+			// 날짜 데이터를 문자열로 변환하기 위한 설정
+			SimpleDateFormat sd 
+				= new SimpleDateFormat("yyyy-MM-dd");
+			
+			// 날짜 데이터를 설정한 포멧대로 문자열로 변환
+			String sDate = sd.format(date);
+			System.out.println("대여일자 : " + sDate);
+			
+			// INSERT 를 수행하기 위해
+			// VO를 만들고 web에서 전달받은
+			// 도서ISBN과 회원CODE를 Setting
+			BookRentVO brVO = new BookRentVO();
+			brVO.setBr_sdate(sDate);
+			brVO.setBr_isbn(bk_isbn);
+			brVO.setBr_bcode(bu_code);
+			brVO.setBr_price(1000);
+			
+			int result = brService.insert(brVO);
+			if(result > 0) {
+				out.println("대여정보 추가 성공!!!");
+			} else {
+				out.println("대여정보 추가 실패!!");
+			}
+			out.close();
 			
 		} else if(subPath.equals("/return")) {
 			// 반납하기
