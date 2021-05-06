@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -146,25 +145,43 @@ public class BookRentController extends HttpServlet{
 				}
 				System.out.println("=".repeat(50));
 				
-				ServletContext app = req.getServletContext();
-				app.setAttribute("BUYERS", buList);
+				// ServletContext를 생성하여 속성(변수)세팅하기
+				// ServletContext app = req.getServletContext();
+				// app.setAttribute("BUYERS", buList);
 				
+				// req 객체에 바로 세팅하기
+				req.setAttribute("BUYERS", buList);
+				
+				// page1.jsp 파일을 열고 BUYERS 변수와 함께
+				// Rendering을 하여 HTML 코드를 생성하라
 				RequestDispatcher disp 
 				= req.getRequestDispatcher("/WEB-INF/views/page1.jsp");
 				disp.forward(req, resp);
+				
 			}
 		} else if(subPath.equals("/order/page2")) {
 			
 			String bu_code = req.getParameter("bu_code");
+			
+			// bu_code 값에 해당하는 회원정보 추출
 			BuyerDTO buyerDTO = buService.findById(bu_code);
-			System.out.println(buyerDTO.toString());
+			if(buyerDTO != null) {
+				// bu_code 값에 해당하는 회원정보가 있으면
+				// Console에 출력
+				System.out.println(buyerDTO.toString());	
+			}
+			// ServletContext app = req.getServletContext();
+			// app.setAttribute("BUYER", buyerDTO);
+			req.setAttribute("BUYER", buyerDTO);
 			
-			ServletContext app = req.getServletContext();
-			app.setAttribute("BUYER", buyerDTO);
-			
+			// BUYER에 담긴 회원정보를 page2.jsp에
+			// Rendering하여 보여라
 			RequestDispatcher disp 
 			= req.getRequestDispatcher("/WEB-INF/views/page2.jsp");
 			disp.forward(req, resp);
+			
+		} else if(subPath.equals("/order/book")) {
+			
 			
 		} else if(subPath.equals("/return")) {
 			// 반납하기
