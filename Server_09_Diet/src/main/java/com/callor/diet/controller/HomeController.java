@@ -14,11 +14,13 @@ public class HomeController extends HttpServlet{
 	private static final long serialVersionUID = -953531494441799347L;
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher(
-				"/WEB-INF/views/home.jsp")
-		.forward(req, resp);
-	}
+//		req.getRequestDispatcher(
+//				"/WEB-INF/views/home.jsp")
+//		.forward(req, resp);
 
+		ReqController.forward(req, resp, "home");
+		
+	}
 }
 
 
