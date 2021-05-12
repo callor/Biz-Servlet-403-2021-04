@@ -8,6 +8,7 @@
 </head>
 <body>
 	<h1>다이어트를 도와죠!!!</h1>
-
+	<%--   /diet/food/search --%>
+	<a href="${pageContext.request.contextPath}/food/search">섭취정보 등록</a>
 </body>
 </html>
