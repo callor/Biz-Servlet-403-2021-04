@@ -11,13 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.callor.diet.model.FoodDTO;
 import com.callor.diet.service.FoodService;
+import com.callor.diet.service.impl.FoodServiceImplV1;
 
 @WebServlet("/food/*")
 public class FoodController extends HttpServlet{
 	
 	private static final long serialVersionUID = 5430871336219122803L;
 	protected FoodService fdService;
-	
+	public FoodController() {
+		fdService = new FoodServiceImplV1();
+	}
 	
 	// anchor link를 클릭했을때 처리할 method
 	// a tag : <a href>
@@ -46,21 +49,22 @@ public class FoodController extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		String subPath = req.getPathInfo();
-		
 		if(subPath == null || subPath.equals("")) {
-			
 			System.out.println("요청 subPath가 없음");
-			
+
 		} else if( subPath.equals("/search")) {
 			
 			// form에 입력된 데이터를 
 			// 추출(파라메터를 Get)하고
 			String f_name = req.getParameter("f_name");
+			System.out.println(f_name);
 			// DB에서 조회하여 다시 Web에 보여주기
 			List<FoodDTO> foodList 
 				= fdService.findByFName(f_name);
+			
 			req.setAttribute("FOODS", foodList);
 			ReqController.forward(req, resp, "search");
+			
 		}
 	}
 }

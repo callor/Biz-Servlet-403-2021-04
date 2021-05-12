@@ -37,13 +37,12 @@ public class DBContract {
 				System.out.println("=".repeat(30));
 			}
 		}
-		
-		
-		
-		
 	}
-	
-	
-	
+
+	// 미리 생성해 둔 dbConn 연결 객체를
+	// 가져갈수 있도록 하는 통로
+	public static Connection getDBConnection() {
+		return dbConn;
+	}
 
 }
