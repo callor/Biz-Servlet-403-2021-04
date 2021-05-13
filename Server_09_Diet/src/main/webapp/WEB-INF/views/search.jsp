@@ -163,7 +163,7 @@
 						--%>
 						<td>${FOOD.fd_code}</td>
 						<td>
-						<a href="${rootPath}/food/insert">
+<a href="${rootPath}/food/insert?fd_code=${FOOD.fd_code}">
 							${FOOD.fd_name}
 						</a>
 						</td>
