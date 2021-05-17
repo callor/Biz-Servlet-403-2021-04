@@ -13,7 +13,7 @@ import com.callor.diet.model.MyFoodCDTO;
 import com.callor.diet.service.MyFoodService;
 import com.callor.diet.service.impl.MyFoodServiceImplV1;
 
-@WebServlet("/")
+@WebServlet({"/"})
 public class HomeController extends HttpServlet{
 
 	private static final long serialVersionUID = -953531494441799347L;
@@ -28,9 +28,14 @@ public class HomeController extends HttpServlet{
 //				"/WEB-INF/views/home.jsp")
 //		.forward(req, resp);
 
-		List<MyFoodCDTO> mfList = mfService.selectAll();
+		String mf_date = req.getParameter("mf_date");
+		List<MyFoodCDTO> mfList = null;
+		if(mf_date == null || mf_date.equals("")) {
+			 mfList = mfService.selectAll();
+		} else {
+			mfList = mfService.findByDate(mf_date);
+		}
 		req.setAttribute("MFOODS", mfList);
-		
 		ReqController.forward(req, resp, "home");
 		
 	}

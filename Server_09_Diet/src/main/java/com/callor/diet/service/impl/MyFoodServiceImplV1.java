@@ -97,7 +97,7 @@ public class MyFoodServiceImplV1 implements MyFoodService{
 	public List<MyFoodCDTO> findByDate(String mf_date) {
 		// TODO Auto-generated method stub
 		String sql = " SELECT * FROM view_섭취량계산 ";
-		sql += " WHERE 섭취일 = ? ";
+		sql += " WHERE 섭취일자 = ? ";
 		
 		PreparedStatement pStr = null;
 		try {

@@ -1,0 +1,44 @@
+@charset "UTF-8";
+table, h1, div.input {
+	width: 90%;
+	margin: 20px auto;
+}
+
+table, tr {
+	border-collapse: collapse;
+	border-spacing: 0;
+	border: 1px solid gray;
+}
+
+th, td {
+	padding: 5px;
+}
+
+tbody tr:nth-child(even) {
+	background-color: #eee;
+}
+
+tbody tr:nth-child(odd) {
+	background-color: #ccc
+}
+
+div.input {
+	border: 1px solid green;
+}
+
+div.input input {
+	margin: 10px;
+}
+
+a {
+	text-decoration: none;
+	display: inline-block;
+	padding: 10px;
+	background-color: #eee;
+}
+
+a:hover {
+	/* offset-x | offset-y | blur-radius | spread-radius | color */
+	/* blur-radius : 흐려짐 값이 클수록 흐려짐 */
+	box-shadow: 5px 5px 10px #aaa;
+}

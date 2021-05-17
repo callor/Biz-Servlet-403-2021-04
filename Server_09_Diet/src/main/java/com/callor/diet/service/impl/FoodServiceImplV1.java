@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jdt.internal.compiler.batch.FileSystem.ClasspathSectionProblemReporter;
-
 import com.callor.diet.config.DBContract;
 import com.callor.diet.config.DBInfo;
 import com.callor.diet.model.FoodDTO;
