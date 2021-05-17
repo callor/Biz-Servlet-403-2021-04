@@ -2,15 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  
 			prefix="c"%>
-    
+   
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Insert title here</title>
 <c:set 
 	value="${pageContext.request.contextPath}" 
-	var="rootPath"/>
+	var="rootPath" />
+<link rel="stylesheet" href="<c:url value="/index.css" />">
 <%--
 외부의 css file 가져오기
 webapp 폴더는 프로젝트의 외부에서 접근할때
@@ -22,8 +24,7 @@ homeController가 catcher 하도록 만들어져 있기 때문에
 어떠한 파일로 연결을 할수 없다.
 
  --%>
-<link href="${rootPath}/css/home.css" 
-			rel="stylesheet">
+
 </head>
 <body>
 	<h1>다이어트를 도와죠!!!</h1>
