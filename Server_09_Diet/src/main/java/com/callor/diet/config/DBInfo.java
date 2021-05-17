@@ -60,11 +60,12 @@ public class DBInfo {
 	
 	public static class 섭취정보계산 {
 		
+		public static final String mf_seq = "일련번호";
 		public static final String mf_date = "섭취일자";
 		public static final String mf_fcode = "식품코드";
 		public static final String mf_fname = "식품명";
 		public static final String mf_amt = "섭취량";
-		public static final String mf_one = "제공량";
+		public static final String mf_once = "제공량";
 		public static final String mf_capa = "총내용량";
 		public static final String mf_cal = "에너지";
 		public static final String mf_protein = "단백질";

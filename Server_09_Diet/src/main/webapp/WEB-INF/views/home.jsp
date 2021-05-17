@@ -33,6 +33,9 @@
 	<h1>다이어트를 도와죠!!!</h1>
 	<%--   /diet/food/search --%>
 	<a href="${pageContext.request.contextPath}/food/search">섭취정보 등록</a>
+	<%-- JSP 파일에서 다른 JSP파일 연결하기 --%>
+	<%@ include file="/WEB-INF/views/list.jsp" %>
+
 </body>
 </html>
 
