@@ -16,7 +16,10 @@ import com.callor.diet.service.impl.MyFoodServiceImplV1;
 @WebServlet({"/"})
 public class HomeController extends HttpServlet{
 
-	private static final long serialVersionUID = -953531494441799347L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected MyFoodService mfService;
 	public HomeController() {
 		mfService = new MyFoodServiceImplV1();

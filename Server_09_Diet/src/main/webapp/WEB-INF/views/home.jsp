@@ -5,7 +5,7 @@
 <c:set value="${pageContext.request.contextPath}" 
 			var="rootPath" />   
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,7 @@ css, js 등 외부 파일을 변경해도 적용이 안되는 경우가 있다
 파일이 변경된 것으로 인식하여 새로고침을 해 준다
 --%>
 <link rel="stylesheet" 
-		href="${rootPath}/css/home.css?ver=1"  />
+		href="/diet/css/test.css?ver=11111"  />
 
 <%--
 외부의 css file 가져오기
