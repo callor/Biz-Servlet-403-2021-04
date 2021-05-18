@@ -67,7 +67,27 @@ public class GuestBookServiceImplV1 implements GuestBookService{
 
 	@Override
 	public GuestBookVO findById(Long seq) {
-		// TODO Auto-generated method stub
+		// TODO seq로 조회하기
+		String sql = " SELECT * FROM tbl_guest_book ";
+		sql += " WHERE gb_seq = ? ";
+		
+		PreparedStatement pStr = null;
+		
+		try {
+			pStr = dbConn.prepareStatement(sql);
+			pStr.setLong(1, seq);
+			
+			List<GuestBookVO> gbList = this.select(pStr);
+			
+			pStr.close();
+			if(gbList != null && gbList.size() > 0) {
+				System.out.println(gbList.toString());
+				return gbList.get(0);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 

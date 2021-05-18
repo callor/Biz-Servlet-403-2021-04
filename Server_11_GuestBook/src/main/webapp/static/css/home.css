@@ -7,6 +7,8 @@
 }
 
 h1 {
+	color:white;
+	text-align:center;
 	background-color: green;
 	/*
 	HTML, CSS에서의 단위구조
@@ -44,6 +46,17 @@ li:hover {
 }
 
 
+table {
+	border-collapse: collapse;
+	width: 80%;
+	margin:10px auto;
+}
+
+td, th {
+	border:1px solid green;
+	padding:5px;
+	text-align: center;
+}
 
 
 
