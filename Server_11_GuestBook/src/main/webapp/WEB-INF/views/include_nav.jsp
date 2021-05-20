@@ -47,6 +47,58 @@ nav#main a {
 }
 
 </style>
+<script>
+	/*
+	HTMl 문서를 DOM(Document Object Model)이라고 한다
+	Tag로 둘러쌓인 모든 속성은 하나의 객체가 된다
+	
+	HTML 문서의 모든 객체의 시작점 객체는 document
+	*/
+
+	document.addEventListener("DOMContentLoaded",function(){
+		
+		/*
+		상단 메뉴의 항목을 클릭했을때
+		url를 전환하여 다른 화면으로 점프하기
+		=> 다른 page로 전환하기
+		
+		메뉴의 항목인 ul > li tag를 클릭했을때
+		이벤트 버블링 효과에 의해
+		상단으로 이벤트가 전파되는 것을 역 이용하여
+		id main인 nav tag에 클릭 event를 선언하였다
+		nav tag를 클릭하면
+		선택된 li tag의 메뉴제목을 캐취하여
+		메뉴제목에 따라 필요한 page로 전환을 한다
+		*/
+		document
+		.querySelector("nav#main")
+		.addEventListener("click",function(ev) {
+			
+			let text = ev.target.textContent;
+			
+			alert(text + " 가 클릭됨!!!")
+			
+			let url = "${rootPath}"
+			if(text == "HOME") {
+				url += "/" 
+			} else if(text == "공지사항") {
+				url += "/notice"
+			} else if(text == "회사소개") {
+				url += "/profile"
+			} else if(text == "회원가입") {
+				url += "/join"
+			} else if(text == "로그인") {
+				url += "/login"
+			}
+
+			document.location.href = url;
+			
+		});
+	})
+</script>
+
+
+
 	
 <h1>방명록 2021</h1>
 <%-- 메뉴를 설정할때 사용하는 tag --%>
@@ -93,26 +145,6 @@ nav#main a {
 		<li>회원가입</li>
 	</ul>
 </nav>
-<script>
-	/*
-	HTMl 문서를 DOM(Document Object Model)이라고 한다
-	Tag로 둘러쌓인 모든 속성은 하나의 객체가 된다
-	
-	HTML 문서의 모든 객체의 시작점 객체는 document
-	
-	
-	*/
-	
-	document
-	.querySelector("nav#main")
-	.addEventListener("click",function(ev) {
-		
-		let text = ev.target.textContent;
-		alert(text + " 가 클릭됨!!!")
-		
-	});
-</script>
-
 
 
 
