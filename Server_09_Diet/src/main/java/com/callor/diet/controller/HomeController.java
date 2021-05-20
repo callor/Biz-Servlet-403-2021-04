@@ -13,7 +13,7 @@ import com.callor.diet.model.MyFoodCDTO;
 import com.callor.diet.service.MyFoodService;
 import com.callor.diet.service.impl.MyFoodServiceImplV1;
 
-@WebServlet({"/"})
+@WebServlet("/")
 public class HomeController extends HttpServlet{
 
 	/**

@@ -10,7 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="${rootPath}/static/css/home.css?ver2021-05-18-001" 
+<link href="${rootPath}/static/css/home.css?ver2021-05-20-001" 
 			rel="stylesheet" />
 </head>
 <body>

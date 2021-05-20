@@ -23,27 +23,6 @@ h1 {
 	
 }
 
-nav {
-	background-color: blue;
-}
-
-ul {
-	margin:0px;
-	background-color: blue;
-}
-
-li {
-	display :inline-block;
-	list-style : none;
-	margin: 0px;
-	padding:10px;
-	color:white;
-}
-
-li:hover {
-	background-color: gray;
-	color:black;
-}
 
 
 table {
