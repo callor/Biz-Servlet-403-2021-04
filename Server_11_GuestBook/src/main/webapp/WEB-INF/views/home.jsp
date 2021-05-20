@@ -53,8 +53,7 @@ document.addEventListener("DOMContentLoaded",function(){
 			<tr data-seq="${GB.gb_seq}">
 				<td>${GB.gb_date}</td>
 				<td>${GB.gb_time}</td>
-				<td>${GB.gb_writer}</a>
-				</td>
+				<td>${GB.gb_writer}</td>
 			</tr>
 		</c:forEach>
 	</table>
