@@ -1,6 +1,8 @@
 package com.callor.guest.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,6 +41,24 @@ public class GuestBookController extends HttpServlet{
 			.forword(req, resp, "view");
 			
 		} else if ( subPath.equals("/insert")) {
+			
+			GuestBookVO gbVO = new GuestBookVO();
+
+			// 글쓰기를 시작할때 자동으로
+			// 현재 날짜와 시각을 만들어주기
+			// java 1.7이하서도 모두 사용할수 있는 방법
+			SimpleDateFormat sd 
+			= new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat st
+			= new SimpleDateFormat("HH:mm:ss");
+			Date date 
+			= new Date(System.currentTimeMillis());
+			
+			gbVO.setGb_seq(0L);
+			gbVO.setGb_date(sd.format(date));
+			gbVO.setGb_time(st.format(date));
+			
+			req.setAttribute("GB", gbVO);
 			
 			RequestForwardController
 			.forword(req, resp, "write");
