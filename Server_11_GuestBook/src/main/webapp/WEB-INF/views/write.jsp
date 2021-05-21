@@ -71,32 +71,65 @@
 // script를 본문 어디에나 두기 위해
 // document에 Event 설정
 // 화면에 모든 요소가 다 그려지면...
-document.AddEventListener("DOMContentLoaded",function(){
+document.addEventListener("DOMContentLoaded",function(){
 	
 	document.querySelector("button.btn_save")
 	.addEventListener("click",function(ev) {
 		
 		let dom = document;
 		let gb_writer 
-		= dom.querySelector("input[name='gb_writer']").value;
+		= dom.querySelector("input[name='gb_writer']");
 		
 		let gb_email 
-		= dom.querySelector("input[name='gb_email']").value;
+		= dom.querySelector("input[name='gb_email']");
 		
 		let gb_password 
-		= dom.querySelector("input[name='gb_password']").value;
+		= dom.querySelector("input[name='gb_password']");
 		
 		let gb_content 
-		= dom.querySelector("textarea").value;
+		= dom.querySelector("textarea");
+
+		if(gb_writer.value == "") {
+			alert("작성자 이름은" 
+					+" 반드시 입력해야 합니다");
+			//dom
+			//.querySelector("input[name='gb_writer']")
+			//.focus()
+			gb_writer.focus();
+			
+			// 이벤트 코드 진행을 멈춰라
+			return false;
+		}
+		
+		if(gb_email.value == "") {
+			alert("작성자 이메일을 입력하세요");
+			gb_email.focus()
+			return false;
+		}
+		
+		if(gb_password.value == "") {
+			alert("비밀번호를 입력하세요");
+			gb_password.focus();
+			return false;
+		}
+		
+		if(gb_content.value == "") {
+			alert("내용을 입력하세요");
+			gb_content.focus();
+			return false;
+		}
 		
 		alert("저장버튼"
-				+ gb_writer + "\n"
-				+ gb_email + "\n"
-				+ gb_password + "\n"
-				+ gb_content + "\n"
+				+ gb_writer.value + "\n"
+				+ gb_email.value + "\n"
+				+ gb_password.value + "\n"
+				+ gb_content.value + "\n"
 		)
+		
+		// 서버로 전송하라
+		dom.querySelector("form.v1").submit();
+		
 	})
-	
 })
 
 </script>
