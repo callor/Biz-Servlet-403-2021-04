@@ -39,7 +39,15 @@ document.addEventListener("DOMContentLoaded",function(){
 	}) // table의 click
 	
 	// 방명록 쓰기 button click 시작
+	document
+	.querySelector("button.btn_write")
+	.addEventListener("click",function(ev){
+		
+		// alert("방명록쓰기")
+		document.location.href 
+			= "${rootPath}/guest/insert"
 	
+	})
 	
 	// 방명록 쓰기 button click end
 	
@@ -85,6 +93,7 @@ document.addEventListener("DOMContentLoaded",function(){
 		border-radius: 5px;
 		background-color: rgba(0,0,255,1);
 		color:white;
+		width:120px;
 	}
 	
 	section#main button:hover {
@@ -99,7 +108,7 @@ document.addEventListener("DOMContentLoaded",function(){
 		<form>
 			<input name="text">
 		</form>
-		<button>방명록 쓰기</button>
+		<button class="btn_write">방명록 쓰기</button>
 	</section>
 	<table id="gblist">
 		<tr>

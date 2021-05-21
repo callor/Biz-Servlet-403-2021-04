@@ -30,16 +30,20 @@ public class GuestBookController extends HttpServlet{
 			GuestBookVO gbVO = gbService.findById(gb_seq);
 			
 			req.setAttribute("GB",gbVO);
-			req.getRequestDispatcher("/WEB-INF/views/view.jsp")
-			.forward(req, resp);
+
+			// Command(명령자) 패턴
+			// Delegate(대리자) 패턴
+			// req.forword()를 다른 Class에게
+			// 일임하기
+			RequestForwardController
+			.forword(req, resp, "view");
+			
+		} else if ( subPath.equals("/insert")) {
+			
+			RequestForwardController
+			.forword(req, resp, "write");
 		}
-	
 	}
-	
-	
-	
-	
-	
 	
 	
 	
