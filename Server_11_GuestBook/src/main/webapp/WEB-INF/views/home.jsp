@@ -118,6 +118,7 @@ document.addEventListener("DOMContentLoaded",function(){
 		</tr>
 		<c:forEach items="${GBLIST}" var="GB">
 			<tr data-seq="${GB.gb_seq}">
+				<td>${GB.gb_seq}</td>
 				<td>${GB.gb_date}</td>
 				<td>${GB.gb_time}</td>
 				<td>${GB.gb_writer}</td>
