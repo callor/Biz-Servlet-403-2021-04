@@ -100,6 +100,10 @@ document.addEventListener("DOMContentLoaded",function(){
 		box-shadow: 2px 2px 2px rgba(0,0,0,0.3); 
 	}
 	
+	.throth-text {
+		text-decoration: line-through;
+	}
+	
 </style>
 </head>
 <body>
@@ -118,10 +122,10 @@ document.addEventListener("DOMContentLoaded",function(){
 		</tr>
 		<c:forEach items="${GBLIST}" var="GB">
 			<tr data-seq="${GB.gb_seq}">
-				<td>${GB.gb_seq}</td>
+				
 				<td>${GB.gb_date}</td>
 				<td>${GB.gb_time}</td>
-				<td>${GB.gb_writer}</td>
+				<td class="${(GB.gb_seq % 2) == 0 ? 'throth-text' : '' }">${GB.gb_writer}</td>
 			</tr>
 		</c:forEach>
 	</table>
