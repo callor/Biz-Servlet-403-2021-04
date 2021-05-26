@@ -11,7 +11,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>TO DO LIST!!!</h1>
+	<h1>TO DO List</h1>
 
 </body>
 </html>

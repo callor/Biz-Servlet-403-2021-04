@@ -7,16 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class ReqCommand {
+
+	private static final String prefix = "/WEB-INF/views/";
+	private static final String surfix = ".jsp";
 	
-	private final static String prefix ="/WEB-INF/views/";
-	private final static String surfix = ".jsp";
-	
-	public static void forward(HttpServletRequest req, 
-			HttpServletResponse res, String file) throws ServletException, IOException {
+	public static void forward(HttpServletRequest req, HttpServletResponse resp, String file) throws ServletException, IOException {
 
 		String path 
-		= String.format("%s%s%s", prefix,file,surfix);
-		req.getRequestDispatcher(path).forward(req, res);
-	
+		= String.format("%s%s%s",prefix, file, surfix);
+		req.getRequestDispatcher(path).forward(req, resp);
 	}
+
 }

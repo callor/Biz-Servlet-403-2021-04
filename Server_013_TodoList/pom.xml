@@ -1,34 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-
   <modelVersion>4.0.0</modelVersion>
-
   <artifactId>todo</artifactId>
   <version>${parent.version}</version>
   <packaging>war</packaging>
-  <name>callor</name>
-  <description>TodoList</description>
   
-  <!--
-  maven pom.xml의 상속
-  maven 프로젝트를 진행하면서
-  많은 dependency를 설정해야 한다.
-  여러가지 다양한 프로젝트를 진행하는 곳에서느
-  pom.xml을 관리하는데 많은 애로사항이 있다
-  dependency의 버전관리 등에서 문제를 일으킨다.
-  
-  pom project를 생성하고
-  공통으로 사용하는 pom.xml을 등록한 후
-  pom 으로 packaging을 하고 build를 해둔다
-  프로젝트는 maven local repository에 등록되고
-  
-  이후에 다른 프로젝트에서는
-  parent tag를 사용혀여 공통 pom.xml을 상속받아
-  사용한다.
-  -->
   <parent>
   	<groupId>com.callor</groupId>
   	<artifactId>maven</artifactId>
   	<version>0.1</version>
   </parent>
-
+  
 </project>
