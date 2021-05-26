@@ -13,12 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.callor.todo.command.HomeCommandImplV1;
 import com.callor.todo.command.TodoCommand;
+import com.callor.todo.command.TodoCommandImplV1;
 
 @WebServlet("/")
 public class FrontController extends HttpServlet{
 
 	protected Map<String, TodoCommand> commands;
-	
 	
 	// FrontController가 최초 호출될때
 	// 한번 실행되어서
@@ -26,7 +26,22 @@ public class FrontController extends HttpServlet{
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		commands = new HashMap<String,TodoCommand>();
+
+		/*
+		 * 만약 http://localhost:8080/todo/ 로 
+		 * 요청이 오면
+		 * HomeCommandImplV1 객체를 사용하여
+		 * 요청을 처리하기 위한 준비
+		 */
 		commands.put("/", new HomeCommandImplV1());
+
+		/*
+		 * 만약 http://localhost:8080/todo/insert 로
+		 * 요청이 오면
+		 * TodoCommandImplV1 객체를 사용하여
+		 * 요청을 처리하기 위한 준비
+		 */
+		commands.put("/insert", new TodoCommandImplV1());
 	
 	}
 
@@ -42,8 +57,13 @@ public class FrontController extends HttpServlet{
 		String path 
 		= urlPath.substring(req.getContextPath().length());
 		
+		// req 된 URI 중에서
+		// 실제 subPath 부분을 사용하여
+		// 처리할 객체를 Map으로 부터 추출
 		TodoCommand subCommand = commands.get(path);
 		if(subCommand != null) {
+			// 각 Command 객체의 execute() method에게
+			// 실제 요청을 처리하도록 위임하기
 			subCommand.execute(req, res);
 		}
 	}
