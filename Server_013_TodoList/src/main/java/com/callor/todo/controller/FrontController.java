@@ -69,10 +69,5 @@ public class FrontController extends HttpServlet{
 			subCommand.execute(req, res);
 		}
 	}
-
-
-	
-	
-	
 	
 }
