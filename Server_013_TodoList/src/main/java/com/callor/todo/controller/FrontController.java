@@ -15,6 +15,9 @@ import com.callor.todo.command.HomeCommandImplV1;
 import com.callor.todo.command.TodoCommand;
 import com.callor.todo.command.TodoCommandImplV1;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @WebServlet("/")
 public class FrontController extends HttpServlet{
 
