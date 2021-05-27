@@ -2,15 +2,27 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	
 	<groupId>com.callor</groupId>
 	<artifactId>maven</artifactId>
 	<version>0.1</version>
 	<packaging>pom</packaging>
+	
 	<name>callor</name>
 
+	<!-- 
+	pom.xml에서 공통으로 사용할 변수
+	Java Version 
+	Java(1.1)
+	Java2(1.2 ~ 1.4)
+	Java5(1.5 ~ 1.6)
+	Java7(1.7~ 1.8)
+	Java8(1.8 ~ 9, 10, 11, 15, 16)
+	1.8 stream 추가
+	10 새로운 변수 선언 키워드(var)
+	-->
 	<properties>
 		<java-version>15</java-version>
-
 	</properties>
 
 	<dependencies>
@@ -21,7 +33,6 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.25</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
