@@ -86,9 +86,20 @@
 		${rootPath} 시작하는 주소로 사용한다
 		rootPath = http://localhost:8080/todo
 		 --%>
-	<form class="doit" method="POST" action="${rootPath}/insert">
+	<form class="doit" method="POST" 
+			action="${rootPath}/sub/insert">
 		<input name="td_doit" placeholder="할일을 입력한 후 Enter">
 	</form>
+	<table class="td_list">
+		<c:forEach items="${TDLIST}" var="TD">
+			<tr>
+				<td>${TD.td_sdate}<br/>${TD.td_stime}</td>
+				<td>${TD.td_doit}</td>
+				<td>${TD.td_edate}<br/>${TD.td_etime}</td>
+			</tr>
+		</c:forEach>
+	</table>
+	
 
 </body>
 </html>

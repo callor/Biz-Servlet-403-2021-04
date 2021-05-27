@@ -1,5 +1,8 @@
 package com.callor.todo.service;
 
+import java.util.List;
+import java.util.Map;
+
 /*
  * 이번 프로젝트는 1개의 table만으로 구성된
  * 간단한 프로젝트 이므로
@@ -33,14 +36,36 @@ package com.callor.todo.service;
  */
 public interface TodoService {
 	
-	public void selectAll();
-	public void findById();
+	/*
+	 * Map 형식의 VO를 List type으로 return하기
+	 */
+	public List<Map<String,Object>> selectAll();
 	
-	public void findBySDate();
-	public void findByDoit();
+	/* 
+	 * Map의 value를 어떤 형태의 데이터라도
+	 * 저장할수 있도록 하겠다
+	 * 
+	 * Map의 선언방식
+	 * 		Map<String, String> strmap
+	 * 		strmap.put("이름","홍길동")
+	 * 		-- 데이터는 문자열 type만 저장가능
+	 * 
+	 * 		Map<String, Integer> intMap
+	 * 		intMap.put("이름",100)
+	 * 		-- 데이터는 정수형 type만 저장가능
+	 * 
+	 * 		Map<String, Object> objMap
+	 * 		objMap.put("이름","홍길동");
+	 * 		objMap.put("나이", 33)
+	 * 		-- 어떤 type의 데이터라도 저장가능
+	 */
+	public Map<String, Object> findById(Long td_seq);
 	
-	public void insert();
-	public void update();
-	public void delete();
+	public List<Map<String,Object>> findBySDate(String td_sdate);
+	public List<Map<String,Object>> findByDoit(String td_doit);
+	
+	public Integer insert(Map<String,Object> tdVO);
+	public Integer update(Map<String,Object> tdVO);
+	public Integer delete(Long td_seq);
 
 }
