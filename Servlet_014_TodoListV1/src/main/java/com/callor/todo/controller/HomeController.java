@@ -28,6 +28,8 @@ public class HomeController extends HttpServlet{
 		List<Map<String,Object>> tdList 
 			= tdService.selectAll();
 
+		System.out.println("Select 된 데이터");
+		System.out.println(tdList.toString());
 		req.setAttribute("TDLIST", tdList);
 		
 		/*
