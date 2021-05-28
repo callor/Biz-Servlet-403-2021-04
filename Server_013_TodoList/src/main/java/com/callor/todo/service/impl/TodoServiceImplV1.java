@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +28,56 @@ public class TodoServiceImplV1 implements TodoService{
 		dbConn = DbContract.getDbConn();
 	}
 	
+	protected List<Map<String,Object>> select(ResultSet rSet) throws SQLException {
+		
+		// 메타데이터 getter
+		ResultSetMetaData md = rSet.getMetaData();
+		
+		// Select된 table의 칼럼 개수 getter
+		int columns = md.getColumnCount();
+		
+		// 저장할 List<VO> 데이터 생성
+		// ResultSet에 담겨있는 table 데이터를 
+		// List<VO> 로 변환
+		List<Map<String,Object>> tdList
+			= new ArrayList<Map<String,Object>>();
+		
+		// ResultSet에 담긴 데이터에서
+		// 한 레코드씩 읽어서 VO에 담고, List에 추가
+		while(rSet.next()) {
+			
+			// VO 생성하기
+			Map<String,Object> tdVO
+				= new HashMap<String,Object>();
+			
+			// 칼럼 개수만큼 반복문 실행
+			for(int index = 0 ; index < columns ; index++) {
+				
+				// 메타데이터에서 
+				// index 위치의 칼럼명 getter
+				// 		index값은 1 부터 시작한다
+				String colName = md.getColumnName(index + 1);
+				
+				// ResultSet으로 부터
+				// index 위의 칼럼에 저장된 실제 데이터 getter
+				Object objData = rSet.getObject(index + 1);
+				
+				// key:colName, value:objData 인
+				// Map 데이터를 tdVO에 추가하기
+				tdVO.put(colName, objData);
+			
+			} // end for
+			
+			// 리스트에 VO 추가
+			tdList.add(tdVO);
+		} // end while
+		log.debug("TDLIST {}", tdList.toString());
+		
+		return tdList;
+		
+	}
+	
+	
 	@Override
 	public List<Map<String, Object>> selectAll() {
 		
@@ -45,16 +97,16 @@ public class TodoServiceImplV1 implements TodoService{
 			pStr = dbConn.prepareStatement(sql);
 			ResultSet rSet = pStr.executeQuery();
 			
-			/*
-			 * ResultSet으로 DB로 부터 수신데이터에서
-			 * 메타데이터를 활용하여 List<VO>에 값 세팅하기
-			 */
+			List<Map<String,Object>> tdList 
+				= this.select(rSet);
 			
-			// rSet으로 부터 메타데이터 추출(getter)
-			ResultSetMetaData md = rSet.getMetaData();
+			rSet.close();
+			pStr.close();
 			
+			log.debug("SELECT Result: {}", tdList.toString());
 			
-			
+			return tdList;
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -124,5 +176,46 @@ public class TodoServiceImplV1 implements TodoService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@SuppressWarnings("unused")
+	private void viewSelect(ResultSet rSet) throws SQLException {
+		
+		/*
+		 * ResultSet으로 DB로 부터 수신데이터에서
+		 * 메타데이터를 활용하여 List<VO>에 값 세팅하기
+		 */
+		// rSet으로 부터 메타데이터 추출(getter)
+		ResultSetMetaData md = rSet.getMetaData();
+		
+		// Select 된 table의 칼럼정보 추출
+		// 1. 칼럼이 몇개인가
+		int columns = md.getColumnCount();
 
+		// 2. 칼럼의 이름들을 나열하라
+		System.out.println("=".repeat(50));
+		for(int i = 0 ; i < columns ; i++) {
+			System.out.print(md.getColumnName( i+1 ) +"\t");
+		}
+		System.out.println("\n" + "-".repeat(50));
+		
+		/*
+		 * rSet에는 select table의 결과가 모두 저장되어 있다
+		 * 실제데이터와 메타데이터가 모두 포함되어 있다
+		 * rSet객체의 next() method를 한번 호출하면
+		 * 	결과 table의 첫번째 레코드를 읽을 수 있도록
+		 * 	준비해준다
+		 * 이어서 next() method를 계속해서 호출하면
+		 * 	한줄씩 순서대로 읽을 수 있도록 준비해 준다
+		 * 만약 더이상 읽을 데이터가 없으면 false return한다
+		 * while() 반복문을 사용하여 select 된 데이터를
+		 * 	순서대로 추출할수 있도록 한다.
+		 */
+		while(rSet.next()) {
+			for(int i = 0 ; i < columns ; i++) {
+				System.out.print(rSet.getObject(i+1) + "\t");
+			}
+			System.out.println();
+		}
+		System.out.println("=".repeat(50));
+	}
 }

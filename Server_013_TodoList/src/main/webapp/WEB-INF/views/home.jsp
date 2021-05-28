@@ -17,7 +17,7 @@
 		padding:0;
 	}
 	
-	h1, form.doit {
+	h1, form.doit, table.td_list {
 		width: 50%;
 		margin: 10px auto;
 		border-radius: 5px;
@@ -58,9 +58,51 @@
 		background-color: #eee;
 	}
 	
+	table.td_list {
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+	
+	table.td_list td {
+		padding:7px;
+		border-top: 1px solid green;
+		cursor: pointer;
+	}
+	
+	/* table의 마지막 라인(tr)에 포함된 td 에만 */
+	table.td_list tr:last-child  td {
+		border-bottom: 3px solid green;
+	}
 
+	table.td_list td.count {
+		font-size:20px;
+		text-align: right;
+		width: 5%;
+		color:blue;
+	}
 	
+	table.td_list td.sdate, table.td_list td.edate {
+		font-size: 10px;
+		text-align: center;
+		width:20%;
+	}
 	
+	table.td_list td.doit {
+		font-size: 30px;
+		text-align: left;
+		
+		/* 
+		두줄 이상의 본문을 1줄로 줄이고
+		말줄임표 표현 
+		table이 아닌 box 형 tag의 경우
+		max-width 대신 width 값을 설정해야한다
+		아래 4가지 속성을 동시에 적용해만 된다
+		*/
+		max-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
 	
 
 
@@ -106,11 +148,12 @@
 		<c:forEach items="${TDLIST}" 
 					var="TD" 
 					varStatus="ST">
+			<tr>
 			<td class="count">${ST.count}</td>
 			<td class="sdate">${TD.td_sdate}<br/>${TD.td_stime}</td>
 			<td class="doit">${TD.td_doit}</td>
-			<td class="sdate">${TD.td_edate}<br/>${TD.td_etime}</td>
-			
+			<td class="edate">${TD.td_edate}<br/>${TD.td_etime}</td>
+			</tr>
 		</c:forEach>
 	</table>
 	
