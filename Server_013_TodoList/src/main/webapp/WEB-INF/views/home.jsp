@@ -99,6 +99,22 @@
 	<form class="doit" method="POST" action="${rootPath}/insert">
 		<input name="td_doit" placeholder="할일을 입력한 후 Enter">
 	</form>
-
+	<div class="msg">
+		${ERROR}${COMP}
+	</div>
+	<table class="td_list">
+		<c:forEach items="${TDLIST}" 
+					var="TD" 
+					varStatus="ST">
+			<td class="count">${ST.count}</td>
+			<td class="sdate">${TD.td_sdate}<br/>${TD.td_stime}</td>
+			<td class="doit">${TD.td_doit}</td>
+			<td class="sdate">${TD.td_edate}<br/>${TD.td_etime}</td>
+			
+		</c:forEach>
+	</table>
+	
+	
+	
 </body>
 </html>
