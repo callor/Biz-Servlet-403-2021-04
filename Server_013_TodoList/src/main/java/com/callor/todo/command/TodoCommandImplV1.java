@@ -37,10 +37,12 @@ public class TodoCommandImplV1 implements TodoCommand {
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
 		String td_doit = req.getParameter("td_doit");
+		String td_seq = req.getParameter("td_seq");
 		
 		// Server APP에서 System.out.println() 대신
 		// 사용할 console 출력 method
-		log.debug(td_doit);
+		log.debug("td_doit {} ", td_doit);
+		log.debug("td_seq {} ", td_seq);
 		
 		// Map으로 만든 동적(Dynamic) vo
 		// value를 Object로 만든 이유
@@ -51,8 +53,8 @@ public class TodoCommandImplV1 implements TodoCommand {
 		//		미리 어떤 Type으로 지정하기가 어려워
 		//		Super parent Type인 Object 클래스 type으로
 		//		선언한다
-		Map<String,Object> tdVO 
-			= new HashMap<String, Object>();
+		Map<String,Object> tdVO = null; 
+			// = new HashMap<String, Object>();
 		
 		// 최초로 TODO 추가하는 날짜, 시각을 자동생성
 		
@@ -72,6 +74,20 @@ public class TodoCommandImplV1 implements TodoCommand {
 		String curDate = sd.format(date);
 		String curTime = st.format(date);
 
+		// request로 부터 URI 정보를 추출하기
+		String uriPath = req.getRequestURI();
+		log.debug("URI {} ",uriPath);
+		
+		// rootPath == contextRootPath == contextPath
+		String rootPath = req.getContextPath();
+		
+		// 문자열.substring(어디서부터) : 어디서부터 ~ 끝까지
+		// uriPath에서 rootPath를 제외한 나지만 추출하여 달라
+		String path 
+			= uriPath.substring(rootPath.length());
+		
+		log.debug("PATH: {}" , path);
+		
 		// Map type의 VO에 현재 날짜, 시각, 할일 정보를
 		// 저장하기
 		// VO에 칼럼을 추가하면서 동시에 데이터 저장하기

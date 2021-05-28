@@ -72,6 +72,7 @@ public class FrontController extends HttpServlet {
 		 * 요청을 처리하기 위한 준비
 		 */
 		commands.put("/insert", new TodoCommandImplV1());
+		commands.put("/expire", new TodoCommandImplV1());
 	
 	}
 

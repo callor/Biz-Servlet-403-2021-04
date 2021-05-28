@@ -104,13 +104,43 @@
 		white-space: nowrap;
 	}
 	
+	.through-text {
+		text-decoration: 2px line-through red wavy;
+	}
 
 
 </style>
+<script>
+	document.addEventListener("DOMContentLoaded",()=>{
+		
+		document
+		.querySelector("table.td_list")
+		.addEventListener("dblclick",(ev)=>{
+			
+			let tagName = ev.target.tagName
+			if(tagName == "TD") {
+				
+				// 클릭된 TD tag를 감싸고있는 TR객체(누구냐_)
+				let tr = ev.target.closest("TR").dataset
+				// let seq = ev.target.closest("TR").dataset.seq
+				let td_seq = tr.seq
+				let td_edate = tr.edate
+				
+				let confirm_msg = td_edate 
+								? "완료를 취소합니다!! "
+								: "TODO를 완료했나요? ";
+				
+				if(confirm(confirm_msg)) {
+					location.href 
+							= "${rootPath}/expire?td_seq=" 
+							+ td_seq
+				}
+			}
+		})
+	})
 
 
-
-
+</script>
 </head>
 <body>
 	<h1>TO DO List</h1>
@@ -148,10 +178,14 @@
 		<c:forEach items="${TDLIST}" 
 					var="TD" 
 					varStatus="ST">
-			<tr>
+			<tr data-seq="${TD.td_seq}" 
+					data-edate="${TD.td_edate}">
+					
 			<td class="count">${ST.count}</td>
 			<td class="sdate">${TD.td_sdate}<br/>${TD.td_stime}</td>
-			<td class="doit">${TD.td_doit}</td>
+			<td class="doit ${empty TD.td_edate 
+									? '' 
+									: 'through-text' }">${TD.td_doit}</td>
 			<td class="edate">${TD.td_edate}<br/>${TD.td_etime}</td>
 			</tr>
 		</c:forEach>
