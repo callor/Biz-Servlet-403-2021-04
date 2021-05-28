@@ -68,6 +68,23 @@
 		padding:7px;
 		border-top: 1px solid green;
 		cursor: pointer;
+		
+		/*
+		실험적인 css 적용하기
+		user-select:none은 text를 dblclick했을때
+		선택박스가 나타나지 않도록 적용
+		그냥 user-select : 기능이 적용되는 브라우저용
+		-webkit- : 크롬, 구글, 사파리
+		-moz- : 파이어폭스 계열
+		-ms- : 익스플로러
+		-o- : 오페라
+		*/
+		user-select:none;
+		-webkit-user-select:none;
+		-moz-user-select:none;
+		-ms-user-select:none;
+		-o-user-select:none;
+		
 	}
 	
 	/* table의 마지막 라인(tr)에 포함된 td 에만 */
@@ -103,6 +120,8 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+		
+		
 	}
 	
 	.through-text {
