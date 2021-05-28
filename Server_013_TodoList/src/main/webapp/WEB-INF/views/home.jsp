@@ -8,6 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>MY TODO List</title>
 <style>
 	/* style 지정을 위하여 전체 초기화 */
@@ -108,6 +109,24 @@
 		text-decoration: 2px line-through red wavy;
 	}
 
+	/* 화면폭이 800px 이하 일때 적용할 style */
+	@media screen and (max-width:800px) {
+		h1,form.doit, table.td_list {
+			width:70%;
+			margin:0 auto;		
+		}
+	}
+
+	
+	/* 화면폭이 480px 이하(max)일때 적용할 style */
+	@media screen and (max-width:480px) {
+		h1,form.doit, table.td_list {
+			width:95%;
+			margin:0 auto;		
+		}
+	}
+
+
 
 </style>
 <script>
@@ -116,6 +135,8 @@
 		document
 		.querySelector("table.td_list")
 		.addEventListener("dblclick",(ev)=>{
+			
+			ev.preventDefault()
 			
 			let tagName = ev.target.tagName
 			if(tagName == "TD") {

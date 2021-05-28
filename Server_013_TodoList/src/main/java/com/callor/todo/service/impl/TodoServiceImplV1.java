@@ -120,6 +120,27 @@ public class TodoServiceImplV1 implements TodoService{
 	@Override
 	public Map<String, Object> findById(Long seq) {
 		// TODO Auto-generated method stub
+		String sql = " SELECT * FROM tbl_todolist ";
+		sql += " WHERE td_seq = ? ";
+		
+		PreparedStatement pStr = null;
+		try {
+			
+			pStr = dbConn.prepareStatement(sql);
+			pStr.setObject(1, seq);
+			ResultSet rSet = pStr.executeQuery();
+			
+			List<Map<String,Object>> tdList 
+				= this.select(rSet);
+			rSet.close();
+			pStr.close();
+			if(tdList != null && tdList.size() > 0) {
+				return tdList.get(0);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 
@@ -156,18 +177,45 @@ public class TodoServiceImplV1 implements TodoService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-		
-		
 		return null;
 	}
 
 	@Override
 	public Integer update(Map<String, Object> vo) {
 		// TODO Auto-generated method stub
+		
+		String sql = " UPDATE tbl_todolist SET ";
+		// td_sdate = ?,
+		sql += String.format(" %s = ?,", DBInfo.td_sdate );
+		sql += String.format(" %s = ?,", DBInfo.td_stime);
+		sql += String.format(" %s = ?,", DBInfo.td_doit);
+		sql += String.format(" %s = ?,", DBInfo.td_edate );
+		sql += String.format(" %s = ? ", DBInfo.td_etime);
+		sql += String.format(" WHERE %s = ? ", DBInfo.td_seq );
+		
+		PreparedStatement pStr = null;
+		
+		try {
+			pStr = dbConn.prepareStatement(sql);
+			pStr.setObject(1, vo.get(DBInfo.td_sdate));
+			pStr.setObject(2, vo.get(DBInfo.td_stime));
+			pStr.setObject(3, vo.get(DBInfo.td_doit));
+			pStr.setObject(4, vo.get(DBInfo.td_edate));
+			pStr.setObject(5, vo.get(DBInfo.td_etime));
+			pStr.setObject(6, vo.get(DBInfo.td_seq));
+			
+			Integer ret = pStr.executeUpdate();
+			pStr.close();
+			return ret;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
 		return null;
 	}
 
