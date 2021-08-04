@@ -45,8 +45,6 @@ public class HomeController {
 	 * 		이러한 개념을 DI(Depndency Inject)라고 하며
 	 * 		전통 방식과 반대되는 개념이어서 제어의 역전(Ioc)라고
 	 * 		부른다
-	 * 
-	 * 
 	 */
 	
 	private final HomeService hService;
